@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Dorknozzle.master.cs" Inherits="Dorknozzle" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head runat="server">
+    <title>Untitled Page</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+  </head>
+  <body>
+    <form id="form1" runat="server">
+      <!-- Header -->
+      <div class="Header">
+        <asp:ScriptManager ID="DorknozzleScriptManager" runat="server">
+        </asp:ScriptManager>
+        <asp:Image id="Image1" runat="server"
+            ImageUrl="~/Images/header.gif" Width="450" Height="174"
+            AlternateText="The Official Dorknozzle Company
+            Intranet" />
+      </div>
+      <!-- Menu -->
+      <div class="Menu">
+        <asp:Menu ID="Menu1" runat="server">
+            <Items>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/Default.aspx" Text="Home" Value="Home"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/HelpDesk.aspx" Text="Help Desk" Value="Help Desk"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/EmployeeDirectory.aspx" Text="Employee Directory" Value="Employee Directory"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AddressBook.aspx" Text="Address Book" Value="Address Book"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/Departments.aspx" Text="Departments" Value="Departments"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminTools.aspx" Text="Admin Tools" Value="Admin Tools"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminNewsletter.aspx" Text="Admin Newsletter" Value="Admin Newsletter"></asp:MenuItem>
+            </Items>
+          </asp:Menu>
+      </div>
+      <!-- Content -->
+      <div class="Content">
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1"
+            runat="server" />
+      </div>
+    </form>
+  </body>
+</html>

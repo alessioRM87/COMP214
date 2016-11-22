@@ -3,14 +3,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-  <h1>Admin Tools</h1>
-  <p>
-    <asp:Label ID="dbErrorLabel" ForeColor="Red" runat="server" />
-    Select an employee to update:<br />
-    <asp:DropDownList ID="employeesList" runat="server" />
-    <asp:Button ID="selectButton" Text="Select" runat="server" 
-      onclick="selectButton_Click" />
-  </p>
+    <h1>Admin Tools</h1>
+
+    <div>
+      <div id="btnUpdate" style="background-color: blue; width:80px;text-align: center;cursor: pointer;">Update<br />employee</div>
+        <br />
+      <div id="btnAddNew" style="background-color: blue; width:80px;text-align: center;cursor: pointer;">Add new<br />employee</div>
+    </div>
+
+  <div style="float:none">
+      <p class="pUpdate">
+        <asp:Label ID="dbErrorLabel" ForeColor="Red" runat="server" />
+        Select an employee to update:<br />
+        <asp:DropDownList ID="employeesList" runat="server" />
+        <asp:Button ID="selectButton" Text="Select" runat="server" 
+          onclick="selectButton_Click" />
+      </p>
+      <p class="pAddNew">
+          Enter new employee details:   
+      </p>
+  </div>
   <p>
     <span class="widelabel">Name:</span>
     <asp:TextBox ID="nameTextBox" runat="server" />
@@ -40,12 +52,35 @@
     <asp:TextBox ID="mobilePhoneTextBox" runat="server" />
     <br />
   </p>
-  <p>
+  <p class="pUpdate">
     <asp:Button ID="updateButton" Text="Update Employee" 
                 Width="200" Enabled="False" runat="server" 
       onclick="updateButton_Click" />
     <asp:Button ID="deleteButton" Text="Delete Employee"
       Enabled="False" runat="server" onclick="deleteButton_Click" />
   </p>
+
+    <p class="pAddNew">
+        <asp:Button ID="btnAdd" Text="Add Employee" runat="server" />
+  </p>
+
+    <script type="text/javascript">
+        $(function () {
+            
+            $(".pUpdate").css("visibility", "visible");
+            $(".pAddNew").css("visibility", "hidden");
+
+            $("#btnUpdate").click(function () {
+                $(".pUpdate").css("visibility", "visible");
+                $(".pAddNew").css("visibility", "collapse");
+            });
+
+            $("#btnAddNew").click(function () {
+                $(".pUpdate").css("visibility", "collapse");
+                $(".pAddNew").css("visibility", "visible");
+            });
+        });
+    </script>
+
 </asp:Content>
 

@@ -39,7 +39,7 @@ public partial class EmployeeDirectory : System.Web.UI.Page
     conn = new OracleConnection(connectionString);
     // Create command
     comm = new OracleCommand(
-      "SELECT EmployeeID, Name, Username FROM DN_EMPLOYEES",
+      "SELECT EmployeeID, FIRSTNAME, LASTNAME, Username FROM EMPLOYEE",
       conn);
     // Enclose database code in Try-Catch-Finally
     try

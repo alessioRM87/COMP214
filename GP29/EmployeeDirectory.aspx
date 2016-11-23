@@ -9,21 +9,21 @@
     <ItemTemplate>
       <asp:Literal ID="extraDetailsLiteral" runat="server"
           EnableViewState="false" />
-      Name: <strong><%#Eval("Name")%></strong><br />
+      Name: <strong><%#Eval("Firstname")%> <%#Eval("Lastname")%></strong><br />
       Username: <strong><%#Eval("Username")%></strong><br />
       <asp:LinkButton ID="detailsButton" runat="server"
-          Text=<%#"View more details about " + Eval("Name")%>
+          Text=<%#"View more details about " + Eval("Firstname")%>
           CommandName="MoreDetailsPlease"
           CommandArgument=<%#Eval("EmployeeID")%> />
       <br />
       <asp:LinkButton ID="editButton" runat="server"
-          Text=<%#"Edit employee " + Eval("Name")%>
+          Text=<%#"Edit employee " + Eval("Firstname")%>
           CommandName="EditItem"
           CommandArgument=<%#Eval("EmployeeID")%> />
     </ItemTemplate>
     <EditItemTemplate>
       Name: <asp:TextBox ID="nameTextBox" runat="server"
-          Text=<%#Eval("Name")%> /><br />
+          Text=<%#Eval("Firstname")%> /><br />
       Username: <asp:TextBox ID="usernameTextBox" runat="server"
           Text=<%#Eval("Username")%> /><br />
       <asp:LinkButton ID="updateButton" runat="server"

@@ -25,12 +25,13 @@
         <asp:Menu ID="Menu1" runat="server">
             <Items>
                 <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/Default.aspx" Text="Home" Value="Home"></asp:MenuItem>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/HelpDesk.aspx" Text="Help Desk" Value="Help Desk"></asp:MenuItem>
+                <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/HelpDesk.aspx" Text="Help Desk" Value="Help Desk"></asp:MenuItem>--%>
                 <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/EmployeeDirectory.aspx" Text="Employee Directory" Value="Employee Directory"></asp:MenuItem>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AddressBook.aspx" Text="Address Book" Value="Address Book"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/RequestLoan.aspx" Text="Request Loan" Value="Request Loan"></asp:MenuItem>
+                <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AddressBook.aspx" Text="Address Book" Value="Address Book"></asp:MenuItem>--%>
                 <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/Departments.aspx" Text="Departments" Value="Departments"></asp:MenuItem>
                 <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminTools.aspx" Text="Admin Tools" Value="Admin Tools"></asp:MenuItem>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminNewsletter.aspx" Text="Admin Newsletter" Value="Admin Newsletter"></asp:MenuItem>
+                <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminNewsletter.aspx" Text="Admin Newsletter" Value="Admin Newsletter"></asp:MenuItem>--%>
             </Items>
           </asp:Menu>
       </div>

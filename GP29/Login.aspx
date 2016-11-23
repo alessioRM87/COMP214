@@ -4,7 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
   <h1>Login</h1>
-  <asp:Login ID="Login1" runat="server" BorderStyle="Solid" BorderWidth="1px">
-  </asp:Login>
+  
+    <span class="widelabel">User Name:</span>
+    <asp:TextBox ID="txtUser" runat="server" />  
+    <br />
+    <span class="widelabel">Password:</span>
+    <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" />  
+    <br />
+    <asp:Button Text="Login" ID="btnLogin" runat="server" OnClick="btnLogin_Click" />
+
 </asp:Content>
 

@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Data.SqlClient;
+using Oracle.ManagedDataAccess.Client;
 
 public partial class Departments : System.Web.UI.Page
 {
@@ -24,9 +25,9 @@ public partial class Departments : System.Web.UI.Page
   private void BindGrid()
   {
     // Define data objects
-    SqlConnection conn;
+    OracleConnection conn;
     DataSet dataSet = new DataSet();
-    SqlDataAdapter adapter;
+    OracleDataAdapter adapter;
     // Read the DataSet from the ViewState if available
     if(ViewState["DepartmentsDataSet"] == null)
     {
@@ -35,10 +36,10 @@ public partial class Departments : System.Web.UI.Page
           ConfigurationManager.ConnectionStrings[
           "Dorknozzle"].ConnectionString;
       // Initialize connection
-      conn = new SqlConnection(connectionString);
+      conn = new OracleConnection(connectionString);
       // Create adapter
-      adapter = new SqlDataAdapter(
-          "SELECT DepartmentID, Department FROM Departments",
+      adapter = new OracleDataAdapter(
+          "SELECT DepartmentID, DEPARTMENTNAME FROM Department",
           conn);
       // Fill the DataSet
       adapter.Fill(dataSet, "Departments");

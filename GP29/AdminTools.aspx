@@ -24,8 +24,11 @@
       </p>
   </div>
   <p>
-    <span class="widelabel">Name:</span>
-    <asp:TextBox ID="nameTextBox" runat="server" />
+    <span class="widelabel">First Name:</span>
+    <asp:TextBox ID="txtFirstName" runat="server" />
+    <br />
+    <span class="widelabel">Last Name:</span>
+    <asp:TextBox ID="txtLastName" runat="server" />
     <br />
     <span class="widelabel">User Name:</span>
     <asp:TextBox ID="userNameTextBox" runat="server" />

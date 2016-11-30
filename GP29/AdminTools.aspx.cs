@@ -254,6 +254,9 @@ public partial class AdminTools : System.Web.UI.Page
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
+
+        LabelMessage.Text = "";
+
         Employee employee = new Employee();
         employee.firstName = txtFirstName.Text;
         employee.lastName = txtLastName.Text;

@@ -98,5 +98,42 @@ public class DatabaseManager
         }
     }
 
+    public void deleteEmployee(int employeeID, Action success, Action failure)
+    {
+        OracleCommand oracleCommand = new OracleCommand("SP_DELETE_EMPLOYEE", connection);
+
+        oracleCommand.CommandType = CommandType.StoredProcedure;
+
+        oracleCommand.Parameters.Add("EMPLOYEEID", employeeID);
+        OracleParameter returnParameter = oracleCommand.Parameters.Add("SUCCESS", OracleDbType.Byte);
+        returnParameter.Direction = ParameterDirection.ReturnValue;
+
+        try
+        {
+            connection.Open();
+
+            oracleCommand.ExecuteNonQuery();
+
+            Boolean successReturn = (Boolean)returnParameter.Value;
+
+            if (successReturn)
+            {
+                success.Invoke();
+            }
+            else
+            {
+                failure.Invoke();
+            }
+        }
+        catch
+        {
+            failure.Invoke();
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
     #endregion
 }

@@ -251,4 +251,28 @@ public partial class AdminTools : System.Web.UI.Page
         // Refresh the employees list
         LoadEmployeesList();
     }
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Employee employee = new Employee();
+        employee.firstName = txtFirstName.Text;
+        employee.lastName = txtLastName.Text;
+        employee.username = userNameTextBox.Text;
+        employee.password = txtBoxPassword.Text;
+        employee.address = addressTextBox.Text;
+        employee.city = cityTextBox.Text;
+        employee.state = stateTextBox.Text;
+        employee.zip = zipTextBox.Text;
+        employee.phoneNumber = mobilePhoneTextBox.Text;
+
+        Global.databaseManager.insertEmployee(employee,
+            () =>
+            {
+                LabelMessage.Text = "Employee successfully added";
+            },
+            () =>
+            {
+                LabelMessage.Text = "Error inserting new employee!";
+            });
+    }
 }

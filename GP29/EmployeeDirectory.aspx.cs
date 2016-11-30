@@ -15,50 +15,30 @@ using Oracle.ManagedDataAccess.Client;
 
 public partial class EmployeeDirectory : System.Web.UI.Page
 {
+
   protected void Page_Load(object sender, EventArgs e)
   {
-    if (!IsPostBack)
-    {
-      BindList();
-    }
+        if (!IsPostBack)
+        {
+            BindList();
+        }
   }
   protected void BindList()
   {
-        // Define data objects
-    OracleConnection conn;
-    //SqlConnection conn;
-    //SqlCommand comm;
-    OracleCommand comm;
-    OracleDataReader reader;
-    //SqlDataReader reader;
-    // Read the connection string from Web.config
-    string connectionString =
-        ConfigurationManager.ConnectionStrings[
-        "Dorknozzle"].ConnectionString;
-    // Initialize connection
-    conn = new OracleConnection(connectionString);
-    // Create command
-    comm = new OracleCommand(
-      "SELECT EmployeeID, FIRSTNAME, LASTNAME, Username FROM EMPLOYEE",
-      conn);
-    // Enclose database code in Try-Catch-Finally
-    try
-    {
-      // Open the connection
-      conn.Open();
-            // Execute the command
-            reader = comm.ExecuteReader();
-      // Bind the reader to the DataList
-      employeesList.DataSource = reader;
-      employeesList.DataBind();
-      // Close the reader
-      reader.Close();
-    }
-    finally
-    {
-      // Close the connection
-      conn.Close();
-    }
+
+        Global.databaseManager.getEmployees(
+            (dataSet) =>
+            {
+                employeesList.DataSource = dataSet;
+                employeesList.DataBind();
+            },
+            () =>
+            {
+                //TODO Show error message
+                employeesList.DataSource = new DataSet();
+                employeesList.DataBind();
+            });
+
   }
   protected void employeesList_ItemCommand(object source, DataListCommandEventArgs e)
   {

@@ -33,6 +33,9 @@
     <span class="widelabel">User Name:</span>
     <asp:TextBox ID="userNameTextBox" runat="server" />
     <br />
+     <span class="widelabel">Password:</span>
+    <asp:TextBox ID="txtBoxPassword" runat="server" />
+    <br />
     <span class="widelabel">Address:</span>
     <asp:TextBox ID="addressTextBox" runat="server" />
     <br />
@@ -64,7 +67,8 @@
   </p>
 
     <p class="pAddNew">
-        <asp:Button ID="btnAdd" Text="Add Employee" runat="server" />
+        <asp:Button ID="btnAdd" Text="Add Employee" runat="server" OnClick="btnAdd_Click" />
+        <asp:Label ID="LabelMessage" runat="server" Text="Label"></asp:Label>
   </p>
 
     <script type="text/javascript">

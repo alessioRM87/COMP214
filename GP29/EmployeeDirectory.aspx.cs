@@ -122,4 +122,20 @@ public partial class EmployeeDirectory : System.Web.UI.Page
       conn.Close();
     }
   }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        Global.databaseManager.searchEmployees(txtSearch.Text,
+           (dataSet) =>
+           {
+               employeesList.DataSource = dataSet;
+               employeesList.DataBind();
+           },
+           (msg) =>
+           {
+                //TODO Show error message
+               employeesList.DataSource = new DataSet();
+               employeesList.DataBind();
+           });
+    }
 }

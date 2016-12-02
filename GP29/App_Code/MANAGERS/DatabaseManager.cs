@@ -61,6 +61,38 @@ public class DatabaseManager
         }
     }
 
+    public void searchEmployees(string searchStr, Action<DataSet> success, Action<string> failed)
+    {
+        string query = "SELECT * FROM EMPLOYEE " +
+            "WHERE FIRSTNAME LIKE '%' || :SS  || '%' " +
+            "OR LASTNAME LIKE '%' || :SS  || '%' " +
+            "OR USERNAME LIKE '%' || :SS  || '%'";
+        OracleCommand oracleCommand = new OracleCommand(query, connection);
+        oracleCommand.Parameters.Add("SS", OracleDbType.Varchar2).Value = searchStr;
+
+        try
+        {
+            connection.Open();
+
+            OracleDataAdapter oracleDataAdapter = new OracleDataAdapter(oracleCommand);
+
+            DataSet dataSet = new DataSet();
+
+            oracleDataAdapter.Fill(dataSet);
+
+            success.Invoke(dataSet);
+
+        }
+        catch(Exception ex)
+        {
+            failed.Invoke(ex.Message);
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
     public void insertEmployee(Employee employee, Action success, Action failure)
     {
         OracleCommand oracleCommand = new OracleCommand("SP_INSERT_EMPLOYEE", connection);

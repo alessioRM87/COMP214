@@ -25,60 +25,52 @@ public partial class AdminTools : System.Web.UI.Page
     }
     private void LoadEmployeesList()
     {
-        // Declare objects
-        OracleConnection conn;
-        OracleCommand comm;
-        OracleDataReader reader;
-        // Read the connection string from Web.config
-        string connectionString =
-            ConfigurationManager.ConnectionStrings[
-            "Dorknozzle"].ConnectionString;
-        // Initialize connection
-        conn = new OracleConnection(connectionString);
-        // Create command
-        comm = new OracleCommand(
-            "SELECT EmployeeID, Firstname FROM Employee", conn);
-        // Enclose database code in Try-Catch-Finally
-        try
-        {
-            // Open the connection
-            conn.Open();
-            // Execute the command
-            reader = comm.ExecuteReader();
-            // Populate the list of categories
-            employeesList.DataSource = reader;
-            employeesList.DataValueField = "EmployeeID";
-            employeesList.DataTextField = "Firstname";
-            employeesList.DataBind();
-            // Close the reader
-            reader.Close();
-        }
-        catch
-        {
-            // Display error message
-            dbErrorLabel.Text =
-                "Error loading the list of employees!<br />";
-        }
-        finally
-        {
-            // Close the connection
-            conn.Close();
-        }
-        // Disable the update button
-        updateButton.Enabled = false;
-        // Disable the delete button
-        deleteButton.Enabled = false;
-        // Clear any values in the TextBox controls
-        txtFirstName.Text = "";
-        txtLastName.Text = "";
-        userNameTextBox.Text = "";
-        addressTextBox.Text = "";
-        cityTextBox.Text = "";
-        stateTextBox.Text = "";
-        zipTextBox.Text = "";
-        homePhoneTextBox.Text = "";
-        extensionTextBox.Text = "";
-        mobilePhoneTextBox.Text = "";
+        Global.databaseManager.getEmployeesSummaries(
+            (dataSet) =>
+            {
+                employeesList.DataSource = dataSet;
+                employeesList.DataValueField = "EmployeeID";
+                employeesList.DataTextField = "Firstname";
+                employeesList.DataBind();
+
+                // Disable the update button
+                updateButton.Enabled = false;
+                // Disable the delete button
+                deleteButton.Enabled = false;
+                // Clear any values in the TextBox controls
+                txtFirstName.Text = "";
+                txtLastName.Text = "";
+                userNameTextBox.Text = "";
+                addressTextBox.Text = "";
+                cityTextBox.Text = "";
+                stateTextBox.Text = "";
+                zipTextBox.Text = "";
+                homePhoneTextBox.Text = "";
+                extensionTextBox.Text = "";
+                mobilePhoneTextBox.Text = "";
+            },
+            () =>
+            {
+                LabelMessage.Text = "An error occured while trying to get list of employees! Reload page and try again!";
+                employeesList.DataSource = new DataSet();
+                employeesList.DataBind();
+
+                // Disable the update button
+                updateButton.Enabled = false;
+                // Disable the delete button
+                deleteButton.Enabled = false;
+                // Clear any values in the TextBox controls
+                txtFirstName.Text = "";
+                txtLastName.Text = "";
+                userNameTextBox.Text = "";
+                addressTextBox.Text = "";
+                cityTextBox.Text = "";
+                stateTextBox.Text = "";
+                zipTextBox.Text = "";
+                homePhoneTextBox.Text = "";
+                extensionTextBox.Text = "";
+                mobilePhoneTextBox.Text = "";
+            });
     }
     protected void selectButton_Click(object sender, EventArgs e)
     {
@@ -143,111 +135,74 @@ public partial class AdminTools : System.Web.UI.Page
     }
     protected void updateButton_Click(object sender, EventArgs e)
     {
-        // Declare objects
-        SqlConnection conn;
-        SqlCommand comm;
-        // Read the connection string from Web.config
-        string connectionString =
-          ConfigurationManager.ConnectionStrings[
-          "Dorknozzle"].ConnectionString;
-        // Initialize connection
-        conn = new SqlConnection(connectionString);
-        // Create command
-        comm = new SqlCommand(
-            "UPDATE Employee SET FIRSTNAME=@Firstname, LASTNAME=@Lastname, Username=@Username, " +
-            "Address=@Address, City=@City, State=@State, Zip=@Zip, " +
-            "PHONENUMBER=@PHONENUMBER " +
-            "WHERE EmployeeID=@EmployeeID", conn);
-        // Add command parameters
-        comm.Parameters.Add("@Firstname", System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@Firstname"].Value = txtFirstName.Text;
-        comm.Parameters.Add("@Lastname", System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@Lastname"].Value = txtLastName.Text;
+        LabelMessage.Text = "";
 
-        comm.Parameters.Add("@Username",
-        System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@Username"].Value = userNameTextBox.Text;
-        comm.Parameters.Add("@Address",
-            System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@Address"].Value = addressTextBox.Text;
-        comm.Parameters.Add("@City",
-            System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@City"].Value = cityTextBox.Text;
-        comm.Parameters.Add("@State",
-            System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@State"].Value = stateTextBox.Text;
-        comm.Parameters.Add("@Zip",
-            System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@Zip"].Value = zipTextBox.Text;
-        comm.Parameters.Add("@PHONENUMBER",
-            System.Data.SqlDbType.NVarChar, 50);
-        comm.Parameters["@PHONENUMBER"].Value = homePhoneTextBox.Text;
-        //comm.Parameters.Add("@Extension", 
-        //    System.Data.SqlDbType.NVarChar, 50);
-        //comm.Parameters["@Extension"].Value = extensionTextBox.Text;
-        //comm.Parameters.Add("@MobilePhone", 
-        //    System.Data.SqlDbType.NVarChar, 50);
-        //comm.Parameters["@MobilePhone"].Value = mobilePhoneTextBox.Text;
-        comm.Parameters.Add("@EmployeeID", System.Data.SqlDbType.Int);
-        comm.Parameters["@EmployeeID"].Value =
-            employeesList.SelectedItem.Value;
-        // Enclose database code in Try-Catch-Finally
-        try
-        {
-            // Open the connection
-            conn.Open();
-            // Execute the command
-            comm.ExecuteNonQuery();
-        }
-        catch
-        {
-            // Display error message
-            dbErrorLabel.Text =
-                "Error updating the employee details!<br />";
-        }
-        finally
-        {
-            // Close the connection
-            conn.Close();
-        }
-        // Refresh the employees list
-        LoadEmployeesList();
+        Employee employee = new Employee();
+
+        int employeeID = Int32.Parse(employeesList.SelectedItem.Value);
+        Global.databaseManager.getEmployeeByID(employeeID,
+            (dataSet) => {
+                employee.firstName = dataSet.Tables[0].Rows[0]["FIRSTNAME"].ToString();
+                employee.lastName = dataSet.Tables[0].Rows[0]["LASTNAME"].ToString();
+                employee.username = dataSet.Tables[0].Rows[0]["USERNAME"].ToString();
+                employee.password = dataSet.Tables[0].Rows[0]["PASSWORD"].ToString();
+                employee.address = dataSet.Tables[0].Rows[0]["ADDRESS"].ToString();
+                employee.city = dataSet.Tables[0].Rows[0]["CITY"].ToString();
+                employee.state = dataSet.Tables[0].Rows[0]["STATE"].ToString();
+                employee.zip = dataSet.Tables[0].Rows[0]["ZIP"].ToString();
+                employee.phoneNumber = dataSet.Tables[0].Rows[0]["PHONENUMBER"].ToString();
+
+                employee.firstName = (txtFirstName.Text == "" || txtFirstName.Text == null) ? employee.firstName : txtFirstName.Text;
+                employee.lastName = (txtLastName.Text == "" || txtLastName.Text == null) ? employee.lastName : txtLastName.Text;
+                employee.username = (userNameTextBox.Text == "" || userNameTextBox.Text == null) ? employee.username : userNameTextBox.Text;
+                employee.password = (txtBoxPassword.Text == "" || txtBoxPassword.Text == null) ? employee.password : txtBoxPassword.Text;
+                employee.address = (addressTextBox.Text == "" || addressTextBox.Text == null) ? employee.address : addressTextBox.Text;
+                employee.city = (cityTextBox.Text == "" || cityTextBox.Text == null) ? employee.city : cityTextBox.Text;
+                employee.state = (stateTextBox.Text == "" || stateTextBox.Text == null) ? employee.state : stateTextBox.Text;
+                employee.zip = (zipTextBox.Text == "" || zipTextBox.Text == null) ? employee.zip : zipTextBox.Text;
+                employee.phoneNumber = (mobilePhoneTextBox.Text == "" || mobilePhoneTextBox.Text == null) ? employee.phoneNumber : mobilePhoneTextBox.Text;
+
+                Global.databaseManager.updateEmployee(employee,
+                    () =>
+                    {
+                        LabelMessage.Text = "Employee updated successfully!";
+
+                        // Refresh the employees list
+                        LoadEmployeesList();
+                    },
+                    () =>
+                    {
+                        LabelMessage.Text = "Error updating employee! Please try again";
+
+                        // Refresh the employees list
+                        LoadEmployeesList();
+                    });
+
+            },
+            () => {
+                LabelMessage.Text = "An error occured! please try again!";
+
+                // Refresh the employees list
+                LoadEmployeesList();
+            });
+
+        
     }
     protected void deleteButton_Click(object sender, EventArgs e)
     {
-        // Define data objects
-        SqlConnection conn;
-        SqlCommand comm;
-        // Read the connection string from Web.config
-        string connectionString =
-            ConfigurationManager.ConnectionStrings[
-            "Dorknozzle"].ConnectionString;
-        // Initialize connection
-        conn = new SqlConnection(connectionString);
-        // Create command 
-        comm = new SqlCommand("DELETE FROM Employees " +
-            "WHERE EmployeeID = @EmployeeID", conn);
-        // Add command parameters
-        comm.Parameters.Add("@EmployeeID", System.Data.SqlDbType.Int);
-        comm.Parameters["@EmployeeID"].Value =
-            employeesList.SelectedItem.Value;
-        try
-        {
-            // Open the connection
-            conn.Open();
-            // Execute the command
-            comm.ExecuteNonQuery();
-        }
-        catch
-        {
-            // Display error message
-            dbErrorLabel.Text = "Error deleting employee!<br />";
-        }
-        finally
-        {
-            // Close the connection
-            conn.Close();
-        }
+        int employeeID = Int32.Parse(employeesList.SelectedItem.Value);
+        Global.databaseManager.deleteEmployee(employeeID,
+            () =>
+            {
+                LabelMessage.Text = "Employee deleted successfully";
+            },
+            () =>
+            {
+                LabelMessage.Text = "Error deleting employee!";
+            });
+
+
+        
         // Refresh the employees list
         LoadEmployeesList();
     }
@@ -277,5 +232,8 @@ public partial class AdminTools : System.Web.UI.Page
             {
                 LabelMessage.Text = "Error inserting new employee!";
             });
+
+        // Refresh employee list
+        LoadEmployeesList();
     }
 }

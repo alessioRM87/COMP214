@@ -34,7 +34,7 @@ public class DatabaseManager
 
     #region Methods
 
-    public void getEmployees(Action<DataSet> success, Action failed)
+    public void getEmployees(Action<DataSet> success, Action failure)
     {
         OracleCommand oracleCommand = new OracleCommand("SELECT * FROM EMPLOYEE", connection);
 
@@ -53,7 +53,62 @@ public class DatabaseManager
         }
         catch
         {
-            failed.Invoke();
+            failure.Invoke();
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
+    public void getEmployeesSummaries(Action<DataSet> success, Action failure)
+    {
+        OracleCommand oracleCommand = new OracleCommand("SELECT EMPLOYEEID, FIRSTNAME FROM EMPLOYEE", connection);
+
+        try
+        {
+            connection.Open();
+
+            OracleDataAdapter oracleDataAdapter = new OracleDataAdapter(oracleCommand);
+
+            DataSet dataSet = new DataSet();
+
+            oracleDataAdapter.Fill(dataSet);
+
+            success.Invoke(dataSet);
+
+        }
+        catch
+        {
+            failure.Invoke();
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+    public void getEmployeeByID(int employeeID, Action<DataSet> success, Action failure)
+    {
+        OracleCommand oracleCommand = new OracleCommand("SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = @EmployeeID", connection);
+
+        oracleCommand.Parameters.Add("@EmployeeID", employeeID);
+
+        try
+        {
+            connection.Open();
+
+            OracleDataAdapter oracleDataAdapter = new OracleDataAdapter(oracleCommand);
+
+            DataSet dataSet = new DataSet();
+
+            oracleDataAdapter.Fill(dataSet);
+
+            success.Invoke(dataSet);
+
+        }
+        catch
+        {
+            failure.Invoke();
         }
         finally
         {
@@ -109,6 +164,43 @@ public class DatabaseManager
         oracleCommand.Parameters.Add("ZIP", employee.zip);
         oracleCommand.Parameters.Add("PHONENUMBER", employee.phoneNumber);
         //TODO Remove hardcoded values
+        oracleCommand.Parameters.Add("DEPARTMENTID", 3);
+        oracleCommand.Parameters.Add("COMPANYID", 1);
+
+        try
+        {
+            connection.Open();
+
+            oracleCommand.ExecuteNonQuery();
+
+            success.Invoke();
+        }
+        catch
+        {
+            failure.Invoke();
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
+    public void updateEmployee(Employee employee, Action success, Action failure)
+    {
+        OracleCommand oracleCommand = new OracleCommand("UPDATE Employee" + 
+            " SET FIRSTNAME=@Firstname, LASTNAME=@Lastname, USERNAME=@Username, " +
+            "ADDRESS=@Address, CITY=@City, STATE=@State, ZIP=@Zip, " +
+            "PHONENUMBER=@PhoneNumber " +
+            "WHERE EMPLOYEEID=@EmployeeID", connection);
+
+        oracleCommand.Parameters.Add("FIRSTNAME", employee.firstName);
+        oracleCommand.Parameters.Add("LASTNAME", employee.lastName);
+        oracleCommand.Parameters.Add("USERNAME", employee.username);
+        oracleCommand.Parameters.Add("ADDRESS", employee.address);
+        oracleCommand.Parameters.Add("CITY", employee.city);
+        oracleCommand.Parameters.Add("STATE", employee.state);
+        oracleCommand.Parameters.Add("ZIP", employee.zip);
+        oracleCommand.Parameters.Add("PHONENUMBER", employee.phoneNumber);
         oracleCommand.Parameters.Add("DEPARTMENTID", 3);
         oracleCommand.Parameters.Add("COMPANYID", 1);
 

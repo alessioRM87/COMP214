@@ -116,14 +116,29 @@ public class DatabaseManager
         }
     }
 
-    public void searchEmployees(string searchStr, Action<DataSet> success, Action<string> failed)
+    public void searchEmployees(string searchType, string searchStr, Action<DataSet> success, Action<string> failed)
     {
-        string query = "SELECT * FROM EMPLOYEE " +
-            "WHERE FIRSTNAME LIKE '%' || :SS  || '%' " +
-            "OR LASTNAME LIKE '%' || :SS  || '%' " +
-            "OR USERNAME LIKE '%' || :SS  || '%'";
+        string query = "";
+
+        switch(searchType)
+        {
+            case "fname":
+                query = "SELECT * FROM EMPLOYEE " +
+            "WHERE UPPER(FIRSTNAME) LIKE '%' || :SS  || '%' ";
+                break;
+            case "lname":
+                query = "SELECT * FROM EMPLOYEE " +
+            "WHERE UPPER(LASTNAME) LIKE '%' || :SS  || '%' ";
+                break;
+            case "uname":
+                query = "SELECT * FROM EMPLOYEE " +
+            "WHERE UPPER(USERNAME) LIKE '%' || :SS  || '%' ";
+                break;
+        }
+
+        
         OracleCommand oracleCommand = new OracleCommand(query, connection);
-        oracleCommand.Parameters.Add("SS", OracleDbType.Varchar2).Value = searchStr;
+        oracleCommand.Parameters.Add("SS", OracleDbType.Varchar2).Value = searchStr.Trim().ToUpper();
 
         try
         {

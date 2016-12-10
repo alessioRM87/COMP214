@@ -125,7 +125,23 @@ public partial class EmployeeDirectory : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        Global.databaseManager.searchEmployees(txtSearch.Text,
+        //Global.databaseManager.searchEmployees(txtSearch.Text,
+        //   (dataSet) =>
+        //   {
+        //       employeesList.DataSource = dataSet;
+        //       employeesList.DataBind();
+        //   },
+        //   (msg) =>
+        //   {
+        //        //TODO Show error message
+        //       employeesList.DataSource = new DataSet();
+        //       employeesList.DataBind();
+        //   });
+    }
+
+    protected void btnFirstName_Click(object sender, EventArgs e)
+    {
+        Global.databaseManager.searchEmployees("fname", txtFname.Text,
            (dataSet) =>
            {
                employeesList.DataSource = dataSet;
@@ -133,7 +149,39 @@ public partial class EmployeeDirectory : System.Web.UI.Page
            },
            (msg) =>
            {
-                //TODO Show error message
+               //TODO Show error message
+               employeesList.DataSource = new DataSet();
+               employeesList.DataBind();
+           });
+    }
+
+    protected void btnLastName_Click(object sender, EventArgs e)
+    {
+        Global.databaseManager.searchEmployees("lname", txtLname.Text,
+           (dataSet) =>
+           {
+               employeesList.DataSource = dataSet;
+               employeesList.DataBind();
+           },
+           (msg) =>
+           {
+               //TODO Show error message
+               employeesList.DataSource = new DataSet();
+               employeesList.DataBind();
+           });
+    }
+
+    protected void btnUsername_Click(object sender, EventArgs e)
+    {
+        Global.databaseManager.searchEmployees("uname", txtUname.Text,
+           (dataSet) =>
+           {
+               employeesList.DataSource = dataSet;
+               employeesList.DataBind();
+           },
+           (msg) =>
+           {
+               //TODO Show error message
                employeesList.DataSource = new DataSet();
                employeesList.DataBind();
            });

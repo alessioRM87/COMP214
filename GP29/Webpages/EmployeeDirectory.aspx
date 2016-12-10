@@ -7,8 +7,13 @@
 
     <div>
         <span>Search for employee: </span><br />
-        <asp:TextBox ID="txtSearch" runat="server"/>
-        <asp:Button ID="btnSearch" Text="Search" runat="server" OnClick="btnSearch_Click"  />
+        <span style="width: 80px; display:inline-block">First name: </span><asp:TextBox ID="txtFname" runat="server"/>
+        <asp:Button ID="btnFirstName" Text="Search" runat="server" OnClick="btnFirstName_Click" /><br />
+        <span style="width: 80px; display:inline-block">Last name: </span><asp:TextBox ID="txtLname" runat="server"/>
+        <asp:Button ID="btnLastName" Text="Search" runat="server" OnClick="btnLastName_Click"  /><br />
+        <span style="width: 80px; display:inline-block">Username: </span><asp:TextBox ID="txtUname" runat="server"/>
+        <asp:Button ID="btnUsername" Text="Search" runat="server" OnClick="btnUsername_Click" /><br />
+        <%--<asp:Button ID="btnSearch" Text="Search" runat="server" OnClick="btnSearch_Click"  />--%>
     </div>
 
     <br />

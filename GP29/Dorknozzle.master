@@ -12,34 +12,55 @@
   <body>
     <form id="form1" runat="server">
       <!-- Header -->
-      <div class="Header">
+      <div class="Header" style="background-color: #66FFFF">
         <asp:ScriptManager ID="DorknozzleScriptManager" runat="server">
         </asp:ScriptManager>
         <asp:Image id="Image1" runat="server"
-            ImageUrl="~/Images/header.gif" Width="450" Height="174"
+            ImageUrl="~/Images/header.gif" Width="1008px" Height="188px"
             AlternateText="The Official Dorknozzle Company
             Intranet" />
       </div>
+        <div>
       <!-- Menu -->
-      <div class="Menu">
-        <asp:Menu ID="Menu1" runat="server">
-            <Items>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="Default.aspx" Text="Home" Value="Home"></asp:MenuItem>
+      <div class="Menu" style="background-color: #00FFFF; color: #009900; font-family: Algerian; font-size: large; font-weight: bold; overflow: auto">
+        <asp:Menu ID="Menu1" runat="server" BackColor="#B5C7DE" DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284E98" Height="76px" Orientation="Horizontal" StaticSubMenuIndent="10px" Width="917px">
+            <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
+            <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+            <DynamicMenuStyle BackColor="#B5C7DE" />
+            <DynamicSelectedStyle BackColor="#507CD1" />
+           <Items>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="Default.aspx" Text="HOME" Value="HOME"></asp:MenuItem>
                 <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/HelpDesk.aspx" Text="Help Desk" Value="Help Desk"></asp:MenuItem>--%>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/EmployeeDirectory.aspx" Text="Employee Directory" Value="Employee Directory"></asp:MenuItem>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/RequestLoan.aspx" Text="Request Loan" Value="Request Loan"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/EmployeeDirectory.aspx" Text="EMPLOYEE DIRECTORY" Value="EMPLOYEE DIRECTORY"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/RequestLoan.aspx" Text="REQUEST LOAN" Value="REQUEST LOAN"></asp:MenuItem>
                 <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AddressBook.aspx" Text="Address Book" Value="Address Book"></asp:MenuItem>--%>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/Departments.aspx" Text="Departments" Value="Departments"></asp:MenuItem>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminTools.aspx" Text="Admin Tools" Value="Admin Tools"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/Departments.aspx" Text="DEPARTMENTS" Value="DEPARTMENTS"></asp:MenuItem>
+                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminTools.aspx" Text="ADMIN TOOLS" Value="ADMIN TOOLS"></asp:MenuItem>
                 <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminNewsletter.aspx" Text="Admin Newsletter" Value="Admin Newsletter"></asp:MenuItem>--%>
             </Items>
-          </asp:Menu>
-      </div>
+            <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+            <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+            <StaticSelectedStyle BackColor="#507CD1" />
+            <StaticItemTemplate>
+                <%# Eval("Text") %>
+            </StaticItemTemplate>
+          </asp:Menu></div></div>
+      <div>
       <!-- Content -->
       <div class="Content">
         <asp:ContentPlaceHolder id="ContentPlaceHolder1"
-            runat="server" />
-      </div>
+            runat="server" >
+            <p>
+                &nbsp;</p>
+            <p>
+                <br />
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+          </asp:ContentPlaceHolder>
+      </div></div>
     </form>
   </body>
 </html>

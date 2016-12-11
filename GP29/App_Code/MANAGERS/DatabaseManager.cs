@@ -89,9 +89,9 @@ public class DatabaseManager
     }
     public void getEmployeeByID(int employeeID, Action<DataSet> success, Action failure)
     {
-        OracleCommand oracleCommand = new OracleCommand("SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = @EmployeeID", connection);
+        OracleCommand oracleCommand = new OracleCommand("SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = :EmployeeID", connection);
 
-        oracleCommand.Parameters.Add("@EmployeeID", employeeID);
+        oracleCommand.Parameters.Add("EmployeeID", employeeID);
 
         try
         {
@@ -203,21 +203,20 @@ public class DatabaseManager
     public void updateEmployee(Employee employee, Action success, Action failure)
     {
         OracleCommand oracleCommand = new OracleCommand("UPDATE Employee" + 
-            " SET FIRSTNAME=@Firstname, LASTNAME=@Lastname, USERNAME=@Username, " +
-            "ADDRESS=@Address, CITY=@City, STATE=@State, ZIP=@Zip, " +
-            "PHONENUMBER=@PhoneNumber " +
-            "WHERE EMPLOYEEID=@EmployeeID", connection);
+            " SET FIRSTNAME=:Firstname, LASTNAME=:Lastname, USERNAME=:Username, " +
+            "ADDRESS=:Address, CITY=:City, STATE=:State, ZIP=:Zip, " +
+            "PHONENUMBER=:PhoneNumber " +
+            "WHERE EMPLOYEEID=:EmployeeID", connection);
 
-        oracleCommand.Parameters.Add("FIRSTNAME", employee.firstName);
-        oracleCommand.Parameters.Add("LASTNAME", employee.lastName);
-        oracleCommand.Parameters.Add("USERNAME", employee.username);
-        oracleCommand.Parameters.Add("ADDRESS", employee.address);
-        oracleCommand.Parameters.Add("CITY", employee.city);
-        oracleCommand.Parameters.Add("STATE", employee.state);
-        oracleCommand.Parameters.Add("ZIP", employee.zip);
-        oracleCommand.Parameters.Add("PHONENUMBER", employee.phoneNumber);
-        oracleCommand.Parameters.Add("DEPARTMENTID", 3);
-        oracleCommand.Parameters.Add("COMPANYID", 1);
+        oracleCommand.Parameters.Add("Firstname", employee.firstName);
+        oracleCommand.Parameters.Add("Lastname", employee.lastName);
+        oracleCommand.Parameters.Add("Username", employee.username);
+        oracleCommand.Parameters.Add("Address", employee.address);
+        oracleCommand.Parameters.Add("City", employee.city);
+        oracleCommand.Parameters.Add("State", employee.state);
+        oracleCommand.Parameters.Add("Zip", employee.zip);
+        oracleCommand.Parameters.Add("PhoneNumber", employee.phoneNumber);
+        oracleCommand.Parameters.Add("EmployeeID", employee.employeeID);
 
         try
         {
@@ -266,6 +265,58 @@ public class DatabaseManager
         }
         catch
         {
+            failure.Invoke();
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
+    public void insertTax(Tax tax, Action<double> success, Action failure)
+    {
+        OracleCommand oracleCommand = new OracleCommand("SP_INSERT_TAX", connection);
+
+        oracleCommand.CommandType = CommandType.StoredProcedure;
+
+        oracleCommand.Parameters.Add("EMPLOYEEID", 1);
+        oracleCommand.Parameters.Add("INCOME", tax.incomes);
+        oracleCommand.Parameters.Add("TAXESPAID", tax.taxesPaid);
+        oracleCommand.Parameters.Add("CONTR", tax.contributions);
+        oracleCommand.Parameters.Add("REFUND", tax.refund);
+        oracleCommand.Parameters["REFUND"].Direction = ParameterDirection.Output;
+
+        try
+        {
+            connection.Open();
+
+            oracleCommand.ExecuteNonQuery();
+
+            connection.Close();
+
+            connection.Open();
+
+            OracleCommand oracleCommandSelect = new OracleCommand("SELECT REFUND FROM TAX WHERE (EMPLOYEEID = :EmployeeID AND TAXYEAR = :TaxYear)", connection);
+
+            DateTime dateTime = DateTime.Today;
+            oracleCommandSelect.Parameters.Add("EmployeeID", 1);
+            oracleCommandSelect.Parameters.Add("TaxYear", dateTime.Year);
+
+            Console.WriteLine(oracleCommand);
+
+            OracleDataAdapter oracleDataAdapter = new OracleDataAdapter(oracleCommandSelect);
+
+            DataSet dataSet = new DataSet();
+
+            oracleDataAdapter.Fill(dataSet);
+
+            tax.refund = Double.Parse(dataSet.Tables[0].Rows[0]["REFUND"].ToString());
+
+            success.Invoke(tax.refund);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
             failure.Invoke();
         }
         finally

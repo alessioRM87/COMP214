@@ -331,5 +331,34 @@ public class DatabaseManager
         
     }
 
+    public void insertLoan(Loan loan, Action success, Action failure)
+    {
+        OracleCommand oracleCommand = new OracleCommand("SP_INSERT_LOAN", connection);
+
+        oracleCommand.CommandType = CommandType.StoredProcedure;
+
+        oracleCommand.Parameters.Add("LOANVALUE", loan.loanValue);
+        oracleCommand.Parameters.Add("YEARS", loan.years);
+        oracleCommand.Parameters.Add("INTERESTRATE", loan.interestRate);
+        oracleCommand.Parameters.Add("EMPLOYEEID", 1);
+
+        try
+        {
+            connection.Open();
+
+            oracleCommand.ExecuteNonQuery();
+
+            connection.Close();
+
+            success.Invoke();
+        }
+        catch (Exception e)
+        {
+            connection.Close();
+
+            failure.Invoke();
+        }
+    }
+
     #endregion
 }

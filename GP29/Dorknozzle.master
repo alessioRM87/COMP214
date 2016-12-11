@@ -1,66 +1,62 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Dorknozzle.master.cs" Inherits="Dorknozzle" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head runat="server">
-    <title>Untitled Page</title>
-    <asp:ContentPlaceHolder id="head" runat="server">
-    </asp:ContentPlaceHolder>
-      <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
-  </head>
-  <body>
-    <form id="form1" runat="server">
-      <!-- Header -->
-      <div class="Header" style="background-color: #66FFFF">
-        <asp:ScriptManager ID="DorknozzleScriptManager" runat="server">
-        </asp:ScriptManager>
-        <asp:Image id="Image1" runat="server"
-            ImageUrl="~/Images/header.gif" Width="1008px" Height="188px"
-            AlternateText="The Official Dorknozzle Company
-            Intranet" />
-      </div>
-        <div>
-      <!-- Menu -->
-      <div class="Menu" style="background-color: #00FFFF; color: #009900; font-family: Algerian; font-size: large; font-weight: bold; overflow: auto">
-        <asp:Menu ID="Menu1" runat="server" BackColor="#B5C7DE" DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284E98" Height="76px" Orientation="Horizontal" StaticSubMenuIndent="10px" Width="917px">
-            <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
-            <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-            <DynamicMenuStyle BackColor="#B5C7DE" />
-            <DynamicSelectedStyle BackColor="#507CD1" />
-           <Items>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="Default.aspx" Text="HOME" Value="HOME"></asp:MenuItem>
-                <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/HelpDesk.aspx" Text="Help Desk" Value="Help Desk"></asp:MenuItem>--%>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/EmployeeDirectory.aspx" Text="EMPLOYEE DIRECTORY" Value="EMPLOYEE DIRECTORY"></asp:MenuItem>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/RequestLoan.aspx" Text="REQUEST LOAN" Value="REQUEST LOAN"></asp:MenuItem>
-                <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AddressBook.aspx" Text="Address Book" Value="Address Book"></asp:MenuItem>--%>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/Departments.aspx" Text="DEPARTMENTS" Value="DEPARTMENTS"></asp:MenuItem>
-                <asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminTools.aspx" Text="ADMIN TOOLS" Value="ADMIN TOOLS"></asp:MenuItem>
-                <%--<asp:MenuItem ImageUrl="~/Images/book_closed.gif" NavigateUrl="~/AdminNewsletter.aspx" Text="Admin Newsletter" Value="Admin Newsletter"></asp:MenuItem>--%>
-            </Items>
-            <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
-            <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-            <StaticSelectedStyle BackColor="#507CD1" />
-            <StaticItemTemplate>
-                <%# Eval("Text") %>
-            </StaticItemTemplate>
-          </asp:Menu></div></div>
-      <div>
-      <!-- Content -->
-      <div class="Content">
-        <asp:ContentPlaceHolder id="ContentPlaceHolder1"
-            runat="server" >
-            <p>
-                &nbsp;</p>
-            <p>
-                <br />
-            </p>
-            <p>
-            </p>
-            <p>
-            </p>
-          </asp:ContentPlaceHolder>
-      </div></div>
-    </form>
-  </body>
+<head runat="server">
+    <title></title>
+<%--    <link href="App_Themes/HomeTheme/StyleSheetHome.css" rel="stylesheet" />--%>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <div class="container">
+
+    <form id="form1" runat="server">        
+
+        <nav class="navbar navbar-light navbar-static-top bg-faded">
+                <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-expanded="false" aria-controls="exCollapsingNavbar2" aria-label="Toggle navigation"></button>
+                <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" id="linkHome" runat="server"><a class="nav-link" href="Default.aspx">HOME<span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item" id="linkAdd" runat="server"><a class="nav-link" href="EmployeeDirectory.aspx">EMPLOYEES</a></li>
+                    <li class="nav-item" id="linkSearch" runat="server"><a class="nav-link" href="RequestLoan.aspx">LOAN</a></li>
+                    <li class="nav-item" id="li1" runat="server"><a class="nav-link" href="#">TAXES</a></li>
+                    <li class="nav-item" id="li2" runat="server"><a class="nav-link" href="AdminTools.aspx">ADMIN TOOL</a></li>
+
+                </ul>
+            </div>
+        </nav>
+        
+
+        <div class="jumbotron">
+            <h1>DORKNOZZLE 2.0</h1>
+            <p class="lead">The extended version of Dorknozzle : add and update employees, request loans and generate tax refunds!</p>
+        </div>
+
+            <div>
+                <asp:Label ID="LabelVisitorsCount" runat="server"></asp:Label>
+            </div>
+
+            <!-- Content place holder for the aspx pages -->
+            <div>
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <footer>
+                <p>© 2016 Centennial College, Advanced Web Application COMP229</p>
+            </footer>
+        </form>
+
+    </div>
+
+</body>
 </html>

@@ -3,21 +3,24 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <h1>Admin Tools</h1>
 
-    <div>
-      <div id="btnUpdate" style="background-color: blue; width:80px;text-align: center;cursor: pointer;">Update<br />employee</div>
+    <div> 
+      <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-default" Text="Update Employee" OnClick="btnUpdate_Click" />
+      <br />
         <br />
-      <div id="btnAddNew" style="background-color: blue; width:80px;text-align: center;cursor: pointer;">Add new<br />employee</div>
+      <asp:Button ID="btnAddNew" runat="server" CssClass="btn btn-default" Text="Add new Employee" OnClick="btnAddNew_Click" />
+          
     </div>
+    <br />
 
   <div style="float:none">
-      <p class="pUpdate">
+      <p id="pUpdate" runat="server">
         <asp:Label ID="dbErrorLabel" ForeColor="Red" runat="server" />
         Select an employee to update:<br />
         <asp:DropDownList ID="employeesList" runat="server" />
         <asp:Button ID="selectButton" Text="Select" runat="server" 
           onclick="selectButton_Click" />
       </p>
-      <p class="pAddNew">
+      <p id="pAddNew" runat="server">
           Enter new employee details:   
       </p>
   </div>
@@ -58,19 +61,16 @@
     <asp:Label ID="LabelMessage" runat="server" Text=""></asp:Label>
 
   </p>
-  <p class="pUpdate">
-    <asp:Button ID="updateButton" Text="Update Employee" 
-                Width="200" Enabled="False" runat="server" 
-      onclick="updateButton_Click" />
-    <asp:Button ID="deleteButton" Text="Delete Employee"
-      Enabled="False" runat="server" onclick="deleteButton_Click" />
+  <p id="pUpdateBottom" runat="server">
+    <asp:Button ID="updateButton" Text="Update Employee" runat="server" onclick="updateButton_Click" />
+    <asp:Button ID="deleteButton" Text="Delete Employee" runat="server" onclick="deleteButton_Click" />
   </p>
 
-    <p class="pAddNew">
+    <p id="pAddNewBottom" runat="server">
         <asp:Button ID="btnAdd" Text="Add Employee" runat="server" OnClick="btnAdd_Click" />
   </p>
 
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         $(function () {
             
             $(".pUpdate").css("visibility", "visible");
@@ -86,7 +86,7 @@
                 $(".pAddNew").css("visibility", "visible");
             });
         });
-    </script>
+    </script>--%>
 
 </asp:Content>
 

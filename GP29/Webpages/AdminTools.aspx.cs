@@ -17,6 +17,13 @@ public partial class AdminTools : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        pUpdate.Visible = true;
+        pAddNew.Visible = false;
+        pUpdateBottom.Visible = true;
+        pAddNewBottom.Visible = false;
+        updateButton.Enabled = true;
+        deleteButton.Enabled = true;
+
         // Read the employees list when initially loading the page
         if (!IsPostBack)
         {
@@ -29,14 +36,10 @@ public partial class AdminTools : System.Web.UI.Page
             (dataSet) =>
             {
                 employeesList.DataSource = dataSet;
-                employeesList.DataValueField = "EmployeeID";
-                employeesList.DataTextField = "Firstname";
+                employeesList.DataValueField = "EMPLOYEEID";
+                employeesList.DataTextField = "FIRSTNAME";
                 employeesList.DataBind();
 
-                // Disable the update button
-                updateButton.Enabled = false;
-                // Disable the delete button
-                deleteButton.Enabled = false;
                 // Clear any values in the TextBox controls
                 txtFirstName.Text = "";
                 txtLastName.Text = "";
@@ -55,10 +58,6 @@ public partial class AdminTools : System.Web.UI.Page
                 employeesList.DataSource = new DataSet();
                 employeesList.DataBind();
 
-                // Disable the update button
-                updateButton.Enabled = false;
-                // Disable the delete button
-                deleteButton.Enabled = false;
                 // Clear any values in the TextBox controls
                 txtFirstName.Text = "";
                 txtLastName.Text = "";
@@ -235,5 +234,21 @@ public partial class AdminTools : System.Web.UI.Page
 
         // Refresh employee list
         LoadEmployeesList();
+    }
+
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        pUpdate.Visible = true;
+        pAddNew.Visible = false;
+        pUpdateBottom.Visible = true;
+        pAddNewBottom.Visible = false;
+    }
+
+    protected void btnAddNew_Click(object sender, EventArgs e)
+    {
+        pUpdate.Visible = false;
+        pAddNew.Visible = true;
+        pUpdateBottom.Visible = false;
+        pAddNewBottom.Visible = true;
     }
 }

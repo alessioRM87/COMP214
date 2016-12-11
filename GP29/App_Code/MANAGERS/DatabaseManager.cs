@@ -48,17 +48,18 @@ public class DatabaseManager
 
             oracleDataAdapter.Fill(dataSet);
 
+            connection.Close();
+
             success.Invoke(dataSet);
 
         }
         catch
         {
+            connection.Close();
+
             failure.Invoke();
         }
-        finally
-        {
-            connection.Close();
-        }
+        
     }
 
     public void getEmployeesSummaries(Action<DataSet> success, Action failure)
@@ -75,16 +76,16 @@ public class DatabaseManager
 
             oracleDataAdapter.Fill(dataSet);
 
+            connection.Close();
+
             success.Invoke(dataSet);
 
         }
         catch
         {
-            failure.Invoke();
-        }
-        finally
-        {
             connection.Close();
+
+            failure.Invoke();
         }
     }
     public void getEmployeeByID(int employeeID, Action<DataSet> success, Action failure)
@@ -103,17 +104,18 @@ public class DatabaseManager
 
             oracleDataAdapter.Fill(dataSet);
 
+            connection.Close();
+
             success.Invoke(dataSet);
 
         }
         catch
         {
+            connection.Close();
+
             failure.Invoke();
         }
-        finally
-        {
-            connection.Close();
-        }
+        
     }
 
     public void searchEmployees(string searchType, string searchStr, Action<DataSet> success, Action<string> failed)
@@ -150,17 +152,18 @@ public class DatabaseManager
 
             oracleDataAdapter.Fill(dataSet);
 
+            connection.Close();
+
             success.Invoke(dataSet);
 
         }
         catch(Exception ex)
         {
+            connection.Close();
+
             failed.Invoke(ex.Message);
         }
-        finally
-        {
-            connection.Close();
-        }
+        
     }
 
     public void insertEmployee(Employee employee, Action success, Action failure)
@@ -188,16 +191,17 @@ public class DatabaseManager
 
             oracleCommand.ExecuteNonQuery();
 
+            connection.Close();
+
             success.Invoke();
         }
         catch
         {
+            connection.Close();
+
             failure.Invoke();
         }
-        finally
-        {
-            connection.Close();
-        }
+        
     }
 
     public void updateEmployee(Employee employee, Action success, Action failure)
@@ -224,15 +228,15 @@ public class DatabaseManager
 
             oracleCommand.ExecuteNonQuery();
 
+            connection.Close();
+
             success.Invoke();
         }
-        catch
-        {
-            failure.Invoke();
-        }
-        finally
+        catch (Exception e)
         {
             connection.Close();
+
+            failure.Invoke();
         }
     }
 
@@ -256,21 +260,24 @@ public class DatabaseManager
 
             if (successReturn)
             {
+                connection.Close();
+
                 success.Invoke();
             }
             else
             {
+                connection.Close();
+
                 failure.Invoke();
             }
         }
         catch
         {
+            connection.Close();
+
             failure.Invoke();
         }
-        finally
-        {
-            connection.Close();
-        }
+        
     }
 
     public void insertTax(Tax tax, Action<double> success, Action failure)
@@ -316,13 +323,12 @@ public class DatabaseManager
         }
         catch (Exception e)
         {
+            connection.Close();
+
             Console.WriteLine(e.Message);
             failure.Invoke();
         }
-        finally
-        {
-            connection.Close();
-        }
+        
     }
 
     #endregion

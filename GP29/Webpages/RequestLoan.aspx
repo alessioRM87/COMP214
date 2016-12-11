@@ -32,11 +32,14 @@
         <asp:ListItem Value="30" Text="30" />
     </asp:DropDownList>
     <br />
-    <span class="widelabel2">Total Interest:</span>
+    <span class="widelabel2">Interest rate :</span>
     <asp:TextBox ID="txtInterest" runat="server" />  
     <br />
     <br />
-    <asp:Button Text="Submit" ID="btnSubmit" runat="server" />
+    <asp:Button Text="Submit" ID="btnSubmit" runat="server" OnClick="btnSubmit_Click"/>
+    <br />
+    <br />
+    <asp:Label ID="labelMessage" runat="server"></asp:Label>
 
 </asp:Content>
 

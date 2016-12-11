@@ -1,13 +1,11 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Dorknozzle.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" Title="Welcome to Dorknozzle!" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style type="text/css">
-    .auto-style1 {
-        text-align: center;
-    }
-</style>
-</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <style type="text/css">
+        .auto-style1 {
+            text-align: center;
+        }
+    </style>
     <h1>&nbsp;</h1>
     <p class="auto-style1" style="color: #000000; font-style: oblique; font-size: large; font-family: Algerian; background-color: #00FF00;">COMPANY NEWS</p>
 <p>&nbsp;</p>

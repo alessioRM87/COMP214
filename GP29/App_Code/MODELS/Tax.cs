@@ -22,4 +22,6 @@ public class Tax
     public double contributions { get; set; }
 
     public double refund { get; set; }
+
+    public int year { get; set; }
 }

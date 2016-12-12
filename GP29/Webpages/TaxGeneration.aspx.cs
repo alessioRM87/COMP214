@@ -9,9 +9,6 @@ public partial class TaxGeneration : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        DateTime today = DateTime.Today;
-
-        labelYear.Text = "Generate taxes for year : " + today.Year;
     }
 
     protected void buttonGenerate_Click(object sender, EventArgs e)
@@ -20,6 +17,7 @@ public partial class TaxGeneration : System.Web.UI.Page
         tax.incomes = Double.Parse(textboxIncomes.Text);
         tax.taxesPaid = Double.Parse(textboxTaxes.Text);
         tax.contributions = Double.Parse(textboxContributions.Text);
+        tax.year = Int32.Parse(textboxYear.Text);
 
         Global.databaseManager.insertTax(tax,
             (refund) =>
@@ -28,7 +26,7 @@ public partial class TaxGeneration : System.Web.UI.Page
             },
             () =>
             {
-                labelMessage.Text = "An error occured! Please try again";
+                labelMessage.Text = "An error occured! Please try again! " + errorMessage;
             }
         );
     }

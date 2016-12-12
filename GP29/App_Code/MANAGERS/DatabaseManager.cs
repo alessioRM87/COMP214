@@ -290,6 +290,7 @@ public class DatabaseManager
         oracleCommand.Parameters.Add("INCOME", tax.incomes);
         oracleCommand.Parameters.Add("TAXESPAID", tax.taxesPaid);
         oracleCommand.Parameters.Add("CONTR", tax.contributions);
+        oracleCommand.Parameters.Add("TAXYEAR", tax.year);
         oracleCommand.Parameters.Add("REFUND", tax.refund);
         oracleCommand.Parameters["REFUND"].Direction = ParameterDirection.Output;
 
@@ -305,9 +306,8 @@ public class DatabaseManager
 
             OracleCommand oracleCommandSelect = new OracleCommand("SELECT REFUND FROM TAX WHERE (EMPLOYEEID = :EmployeeID AND TAXYEAR = :TaxYear)", connection);
 
-            DateTime dateTime = DateTime.Today;
             oracleCommandSelect.Parameters.Add("EmployeeID", 1);
-            oracleCommandSelect.Parameters.Add("TaxYear", dateTime.Year);
+            oracleCommandSelect.Parameters.Add("TaxYear", tax.year);
 
             Console.WriteLine(oracleCommand);
 

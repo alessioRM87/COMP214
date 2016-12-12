@@ -26,7 +26,7 @@ public partial class TaxGeneration : System.Web.UI.Page
             },
             () =>
             {
-                labelMessage.Text = "An error occured! Please try again! " + errorMessage;
+                labelMessage.Text = "An error occured! Please try again! ";
             }
         );
     }

@@ -27,7 +27,7 @@
                     <li class="nav-item" id="linkHome" runat="server"><a class="nav-link" href="Default.aspx">HOME<span class="sr-only">(current)</span></a></li>
                     <li class="nav-item" id="linkAdd" runat="server"><a class="nav-link" href="EmployeeDirectory.aspx">EMPLOYEES</a></li>
                     <li class="nav-item" id="linkSearch" runat="server"><a class="nav-link" href="RequestLoan.aspx">LOAN</a></li>
-                    <li class="nav-item" id="li1" runat="server"><a class="nav-link" href="#">TAXES</a></li>
+                    <li class="nav-item" id="li1" runat="server"><a class="nav-link" href="TaxGeneration.aspx">TAXES</a></li>
                     <li class="nav-item" id="li2" runat="server"><a class="nav-link" href="AdminTools.aspx">ADMIN TOOL</a></li>
 
                 </ul>
